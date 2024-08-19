@@ -23,8 +23,14 @@ public class CatalogoController {
         return catalogoService.obtenerLibro(new LibroId(id));
     }
 
+    @GetMapping("/{id}/disponible")
+    public boolean isLibroDisponible(@PathVariable String id) {
+        Libro libro = catalogoService.obtenerLibro(new LibroId(id));
+        return libro != null && libro.isDisponible();
+    }
+
     @PutMapping("/{id}/disponibilidad")
-    public void actualizarDisponibilidad(@PathVariable String id, @RequestParam boolean disponible) {
+    public void actualizarDisponibilidad(@PathVariable String id, @RequestBody boolean disponible) {
         catalogoService.actualizarDisponibilidad(new LibroId(id), disponible);
     }
 
